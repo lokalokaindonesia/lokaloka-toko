@@ -1,19 +1,34 @@
 import { HiBadgeCheck, HiClock, HiTrendingUp } from 'react-icons/hi'
+import { AiFillDashboard } from 'react-icons/ai'
 import Divider from '../atoms/sidebar/Divider'
 import NavItem from '../atoms/sidebar/NavItem'
 import Sidebar from '../molecules/sidebar/Sidebar'
+import { useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-const Layout = () => {
+const Layout = ({ children }) => {
+    const [session, loading] = useSession()
+    const router = useRouter()
+    useEffect(() => {
+        !session && router.push('/account/login')
+        return () => {}
+    }, [])
+
     return (
         <div className='layout'>
             {/* Sidebar */}
             <Sidebar>
+                <NavItem href='/'>
+                    <AiFillDashboard className='w-5 h-5' />
+                    <span>Dashboard</span>
+                </NavItem>
                 <Divider label='orders' />
-                <NavItem href='/request-orders'>
+                <NavItem href='/orders/request-orders'>
                     <HiClock className='w-5 h-5' />
                     <span>Requested Orders</span>
                 </NavItem>
-                <NavItem href='/approved-orders'>
+                <NavItem href='/orders/approved-orders'>
                     <HiBadgeCheck className='w-5 h-5' />
                     <span>Approved Orders</span>
                 </NavItem>
@@ -25,7 +40,7 @@ const Layout = () => {
             </Sidebar>
 
             {/* Main Content */}
-            <div className='flex-1 p-10 text-2xl font-bold'>content goes here</div>
+            <div className='flex-1 py-8 px-10 bg-blueGray-800'>{children}</div>
         </div>
     )
 }

@@ -14,11 +14,15 @@
     "@tailwindcss/line-clamp": "^0.2.2",
     "@tailwindcss/typography": "^0.4.1",
     "axios": "^0.22.0",
+    "moment": "^2.29.1",
     "next": "11.1.2",
+    "next-auth": "^3.29.0",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "react-number-format": "^4.7.3",
+    "react-toastify": "^8.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.7",

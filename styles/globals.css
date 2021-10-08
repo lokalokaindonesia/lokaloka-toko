@@ -10,5 +10,5 @@
 }
 
 .layout {
-    @apply relative min-h-screen md:flex text-blueGray-800;
+    @apply relative min-h-screen md:flex text-blueGray-50;
 }
