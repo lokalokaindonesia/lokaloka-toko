@@ -1,11 +1,11 @@
 import axios from 'axios'
 import Head from 'next/head'
-import { getSession } from 'next-auth/client'
 import Header from '@/components/atoms/content/Header'
 import SubHeader from '@/components/atoms/content/SubHeader'
 import Layout from '@/components/layout/Layout'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
+import { getSession } from 'next-auth/client'
 
 const index = ({ transactions }) => {
     return (
@@ -105,6 +105,8 @@ export const getServerSideProps = async (context) => {
             Authorization: `Bearer ${session.jwt}`,
         },
     })
+
+    if (!data) return { props: { transactions: [] } }
 
     return {
         props: {

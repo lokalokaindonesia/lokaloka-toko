@@ -32,8 +32,6 @@ const options = {
         jwt: async (token, user, account, profile, isNewUser) => {
             const isSignIn = user ? true : false;
             if (isSignIn) {
-                const provider = account.provider === 'credentials' ? 'local' : account.provider
-                const accessToken = account.provider === 'credentials' ? user.jwt : account?.accessToken
                 if (account.id === 'credentials') {
                     try {
                         const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
@@ -53,18 +51,12 @@ const options = {
                         return console.log({ message: error })
                     }
                 }
-
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/${provider}/callback?access_token=${accessToken}`);
-                const data = response.data;
-
-                token.jwt = data.jwt;
-                token.id = data.user.id;
             }
             return Promise.resolve(token);
         },
         session: async (session, user) => {
-            session.jwt = user.jwt;
-            session.id = user.id;
+            session.jwt = user.jwt
+            session.id = user.id
             return Promise.resolve(session);
         },
     },

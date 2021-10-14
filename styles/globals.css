@@ -7,8 +7,33 @@
 
 * {
     font-family: 'Plus Jakarta Text', sans-serif;
+    scroll-behavior: smooth;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: #95a5a6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #7f8c8d;
 }
 
 .layout {
     @apply relative min-h-screen md:flex text-blueGray-50;
+}
+
+.sidebar {
+    @apply h-screen overflow-y-auto bg-blueGray-900 text-blueGray-100 w-72 flex flex-col justify-between space-y-6 py-7 px-3 inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out;
 }

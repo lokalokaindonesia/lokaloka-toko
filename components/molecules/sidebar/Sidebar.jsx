@@ -11,7 +11,7 @@ const Sidebar = ({ children }) => {
         }
     }
     return (
-        <div className='sidebar bg-blueGray-900 text-blue-100 w-72 space-y-6 py-7 px-3 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out'>
+        <div className='sidebar'>
             <div>
                 <a href='#' className='text-white flex items-center space-x-2 px-4'>
                     <svg className='w-8 h-8' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
@@ -29,7 +29,7 @@ const Sidebar = ({ children }) => {
                 <nav className='flex flex-col space-y-1'>{children}</nav>
             </div>
 
-            <button type='submit' className='sticky bottom-0 px-4 py-2 rounded cursor-pointer bg-red-500 w-full' onClick={() => logoutHandler()}>
+            <button type='submit' className='px-4 py-2 rounded cursor-pointer bg-red-500 w-full' onClick={() => logoutHandler()}>
                 Logout
             </button>
         </div>

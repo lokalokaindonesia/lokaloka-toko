@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
                     <span>Dashboard</span>
                 </NavItem>
                 <Divider label='orders' />
-                <NavItem href='/orders/request-orders'>
+                <NavItem href='/orders/requested-orders'>
                     <HiClock className='w-5 h-5' />
                     <span>Requested Orders</span>
                 </NavItem>
@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
             </Sidebar>
 
             {/* Main Content */}
-            <div className='flex-1 py-8 px-10 bg-blueGray-800'>{children}</div>
+            <div className='flex-1 py-8 px-10 bg-blueGray-800 max-h-screen h-screen overflow-y-auto'>{children}</div>
         </div>
     )
 }
