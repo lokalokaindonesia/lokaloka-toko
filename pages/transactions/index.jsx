@@ -5,8 +5,10 @@ import Layout from '@/components/layout/Layout'
 import { getSession } from 'next-auth/client'
 import axios from 'axios'
 import NumberFormat from 'react-number-format'
+import { useState } from 'react'
 
 const index = ({ transactions }) => {
+    const [allTransactions, setAllTransactions] = useState(transactions)
     return (
         <Layout>
             <Head>
@@ -17,8 +19,10 @@ const index = ({ transactions }) => {
                 <Header title='Transactions' />
                 <SubHeader title='All orders that delivered to customers' />
                 <br />
-                {transactions.length == 0 && <div className='w-full text-lg text-center border border-dashed border-blueGray-100 p-8 rounded h-full font-bold'>No Order</div>}
-                {transactions.length != 0 && (
+                {allTransactions.length == 0 && (
+                    <div className='w-full text-lg text-center border border-dashed border-blueGray-100 p-8 rounded h-full font-bold'>No Transaction</div>
+                )}
+                {allTransactions.length != 0 && (
                     <div className='flex flex-col'>
                         <div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
                             <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
@@ -26,7 +30,7 @@ const index = ({ transactions }) => {
                                     <table className='min-w-full divide-y divide-blueGray-700'>
                                         <thead className='bg-blueGray-900'>
                                             <tr>
-                                                <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-blueGray-400 uppercase tracking-wider'>
+                                                <th scope='col' className='cursor-pointer px-6 py-3 text-left text-xs font-medium text-blueGray-400 uppercase tracking-wider'>
                                                     Transaction Code
                                                 </th>
                                                 <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-blueGray-400 uppercase tracking-wider'>
@@ -44,7 +48,7 @@ const index = ({ transactions }) => {
                                             </tr>
                                         </thead>
                                         <tbody className='bg-blueGray-900 divide-y divide-blueGray-700'>
-                                            {transactions.map((t, i) => {
+                                            {allTransactions.map((t, i) => {
                                                 return (
                                                     <tr key={i}>
                                                         <td className='px-6 py-4 whitespace-nowrap'>

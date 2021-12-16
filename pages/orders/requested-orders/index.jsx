@@ -19,6 +19,26 @@ const index = ({ transactions }) => {
     const cancelButtonRef = useRef(null)
 
     const acceptOrder = async () => {
+        const rawTrans = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`)
+        const data = rawTrans.data
+
+        const z = await data.products.map((x) => {
+            return x.quantity + 'x  ' + x.product.name
+        })
+
+        const products = z.toString().replaceAll(',', '\n')
+
+        const message = `
+        <b>PESANAN BARU</b>
+===============================================
+<b>Tanggal                 = ${moment(data.createdAt).format('LLLL')}</b>
+<b>Kode Transaksi          = ${data.code}</b>
+<b>Nama                    = ${data.user.name}</b>
+<b>Nomor                   = ${data.phone}</b>
+<b>Alamat                  = ${data.shippingLocation}</b>
+===============================================
+${products}
+        `
         await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`,
             {
@@ -30,6 +50,10 @@ const index = ({ transactions }) => {
                 },
             }
         )
+
+        await axios.post(`/api/telegram/sendMessage`, {
+            message,
+        })
 
         getUpdatedTransactions()
     }

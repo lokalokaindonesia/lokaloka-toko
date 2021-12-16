@@ -26,7 +26,8 @@
     "react-icons": "^4.3.1",
     "react-number-format": "^4.7.3",
     "react-redux": "^7.2.5",
-    "react-toastify": "^8.0.3"
+    "react-toastify": "^8.0.3",
+    "twilio": "^3.71.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.7",
