@@ -15,16 +15,8 @@ const index = () => {
 
     const id = router.query.id
     const updateTransaction = async () => {
-        const getTrx = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/transactions?code=${id}`, {
-            headers: {
-                Authorization: `Bearer ${session.jwt}`,
-            },
-        })
-        const trx = getTrx.data
-        console.log(trx)
-
         const { data } = await axios.put(
-            `${process.env.NEXT_PUBLIC_API_URL}/transactions/${trx[0].id}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/transactions/${id}`,
             {
                 paymentStatus: 'SENT',
             },

@@ -39,7 +39,7 @@ const index = ({ transactions }) => {
 ===============================================
 ${products}
 ===============================================
-<a href='https://arumanis.lokaloka.id/update-shipping-status/${data.code}' target="_blank">Update Status Pengiriman</a>
+<a href='https://arumanis.lokaloka.id/update-shipping-status/${data.id}' target="_blank">Update Status Pengiriman</a>
         `
         await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`,
