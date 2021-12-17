@@ -62,7 +62,7 @@ ${products}
 
     const getUpdatedTransactions = async () => {
         const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED`,
+            `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`,
             {
                 headers: {
                     Authorization: `Bearer ${session.jwt}`,
@@ -251,7 +251,7 @@ export const getServerSideProps = async (context) => {
     const session = await getSession(context)
 
     const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED`,
+        `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`,
         {
             headers: {
                 Authorization: `Bearer ${session.jwt}`,
