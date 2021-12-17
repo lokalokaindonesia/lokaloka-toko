@@ -31,13 +31,15 @@ const index = ({ transactions }) => {
         const message = `
         <b>PESANAN BARU</b>
 ===============================================
-<b>Tanggal                 = ${moment(data.createdAt).format('LLLL')}</b>
-<b>Kode Transaksi          = ${data.code}</b>
-<b>Nama                    = ${data.user.name}</b>
-<b>Nomor                   = ${data.phone}</b>
-<b>Alamat                  = ${data.shippingLocation}</b>
+<b>Tanggal                   = ${moment(data.createdAt).format('LLLL')}</b>
+<b>Kode Transaksi            = ${data.code}</b>
+<b>Nama                      = ${data.user.name}</b>
+<b>Nomor                     = ${data.phone}</b>
+<b>Alamat                    = ${data.shippingLocation}</b>
 ===============================================
 ${products}
+===============================================
+<a href='https://arumanis.lokaloka.id/update-shipping-status/${data.code}' target="_blank">Update Status Pengiriman</a>
         `
         await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`,

@@ -23,20 +23,24 @@ const Layout = ({ children }) => {
                     <AiFillDashboard className='w-5 h-5' />
                     <span>Dashboard</span>
                 </NavItem>
-                <Divider label='orders' />
-                <NavItem href='/orders/requested-orders'>
-                    <HiClock className='w-5 h-5' />
-                    <span>Requested Orders</span>
-                </NavItem>
-                <NavItem href='/orders/approved-orders'>
-                    <HiBadgeCheck className='w-5 h-5' />
-                    <span>Approved Orders</span>
-                </NavItem>
-                <Divider label='Histories' />
-                <NavItem href='/transactions'>
-                    <HiTrendingUp className='w-5 h-5' />
-                    <span>Transactions</span>
-                </NavItem>
+                {session?.user?.email != 'driver@gmail.com' && (
+                    <>
+                        <Divider label='orders' />
+                        <NavItem href='/orders/requested-orders'>
+                            <HiClock className='w-5 h-5' />
+                            <span>Requested Orders</span>
+                        </NavItem>
+                        <NavItem href='/orders/approved-orders'>
+                            <HiBadgeCheck className='w-5 h-5' />
+                            <span>Approved Orders</span>
+                        </NavItem>
+                        <Divider label='Histories' />
+                        <NavItem href='/transactions'>
+                            <HiTrendingUp className='w-5 h-5' />
+                            <span>Transactions</span>
+                        </NavItem>
+                    </>
+                )}
             </Sidebar>
 
             {/* Main Content */}
