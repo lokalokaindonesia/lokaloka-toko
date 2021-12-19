@@ -34,15 +34,15 @@ const index = ({ transactions }) => {
 
         const message = `
         <b>PESANAN BARU</b>
-===============================================
-<b>Tanggal                   = ${moment(data.createdAt).format('LLLL')}</b>
+=================
+<b>Tanggal                   = ${moment(data.createdAt).locale('id').format('L')} - ${moment(data.createdAt).locale('id').format('LT')}</b>
 <b>Kode Transaksi            = ${data.code}</b>
 <b>Nama                      = ${data.user.name}</b>
 <b>Nomor                     = ${data.phone}</b>
 <b>Alamat                    = ${data.shippingLocation}</b>
-===============================================
+=================
 ${products}
-===============================================
+=================
 <a href='${process.env.NEXT_URL}/update-shipping-status/${data.id}' target="_blank">Update Status Pengiriman</a>
                 `
         await axios.put(
