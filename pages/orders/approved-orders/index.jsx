@@ -100,7 +100,7 @@ const index = ({ transactions }) => {
 export const getServerSideProps = async (context) => {
     const session = await getSession(context)
 
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus=PROCESSED`, {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:asc&paymentStatus=PROCESSED`, {
         headers: {
             Authorization: `Bearer ${session.jwt}`,
         },
