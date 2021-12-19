@@ -43,7 +43,6 @@ const index = ({ transactions }) => {
 =================
 ${products}
 =================
-<a href='${process.env.NEXT_URL}/update-shipping-status/${data.id}' target="_blank">Update Status Pengiriman</a>
                 `
         await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`,
