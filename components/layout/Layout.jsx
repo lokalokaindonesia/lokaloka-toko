@@ -4,16 +4,9 @@ import Divider from '../atoms/sidebar/Divider'
 import NavItem from '../atoms/sidebar/NavItem'
 import Sidebar from '../molecules/sidebar/Sidebar'
 import { useSession } from 'next-auth/client'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 
 const Layout = ({ children }) => {
     const [session, loading] = useSession()
-    const router = useRouter()
-    useEffect(() => {
-        !session && router.push('/account/login')
-        return () => {}
-    }, [])
 
     return (
         <div className='layout'>
