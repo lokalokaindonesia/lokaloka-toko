@@ -26,7 +26,7 @@ const login = () => {
 
     const [session, loading] = useSession()
 
-    if (session) router.back()
+    if (session) router.push(`${process.env.NEXT_URL}`)
 
     const handleSubmit = (e) => {
         e.preventDefault()
