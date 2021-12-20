@@ -18,7 +18,8 @@ const index = ({ transactions }) => {
     const [open, setOpen] = useState(false)
 
     const cancelButtonRef = useRef(null)
-    const printer = new Recta('3178503389', '1811')
+    // !DEV const printer = new Recta('3178503389', '1811')
+    const printer = new Recta('1678769438', '1811')
     const acceptOrder = async () => {
         const rawTrans = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`)
         const data = rawTrans.data
