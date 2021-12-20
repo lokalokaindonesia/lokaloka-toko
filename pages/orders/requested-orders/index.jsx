@@ -35,14 +35,14 @@ const index = ({ transactions }) => {
         const message = `
         <b>PESANAN BARU</b>
 =================
-<b>Tanggal                   = ${moment(data.createdAt).locale('id').format('L')} - ${moment(data.createdAt).locale('id').format('LT')}</b>
-<b>Kode Transaksi            = ${data.code}</b>
-<b>Nama                      = ${data.user.name}</b>
-<b>Nomor                     = ${data.phone}</b>
-<b>Alamat                    = ${data.shippingLocation}</b>
+<b>Tanggal = ${moment(data.createdAt).locale('id').format('L')} - ${moment(data.createdAt).locale('id').format('LT')}</b>
+<b>Kode Transaksi = ${data.code}</b>
+<b>Nama = ${data.user.name}</b>
+<b>Nomor = ${data.phone}</b>
+<b>Alamat = ${data.shippingLocation}</b>
+<b>Catatan = ${data.notes}</b>
 =================
 ${products}
-=================
                 `
         await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`,
@@ -74,6 +74,8 @@ ${products}
                 .bold(false)
                 .text('================================')
                 .align('left')
+                .text(`CUSTOMER : ${data.user.name}`)
+                .align('left')
                 .bold(false)
                 .text(moment(data.createdAt).locale('id').format('L') + ' - ' + moment(data.createdAt).locale('id').format('LT'))
                 .text(data.code)
@@ -88,7 +90,11 @@ ${products}
                 .align('right')
                 .text('===============')
                 .align('right')
-                .text(`TARIF PENGIRIMAN : ${data.shouldPayAmount - data.totalPrice}`)
+                .text(`BIAYA PENGIRIMAN : ${data.shippingCost}`)
+                .align('right')
+                .text(`BIAYA PENANGANAN : 2000`)
+                .align('right')
+                .text(`PACKAGING : ${data.packagingFee}`)
                 .align('right')
                 .text(`DISKON : -${data.coupon ? data.totalPrice - (data.totalPrice * data.coupon.discount) / 100 : '0'}`)
                 .align('right')
