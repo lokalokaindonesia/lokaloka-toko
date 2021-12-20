@@ -40,7 +40,7 @@ const index = ({ transactions }) => {
 <b>Nama = ${data.user.name}</b>
 <b>Nomor = ${data.phone}</b>
 <b>Alamat = ${data.shippingLocation}</b>
-<b>Catatan = ${data.notes}</b>
+<b>Catatan = ${data.notes ? data.notes : ''}</b>
 =================
 ${products}
                 `
