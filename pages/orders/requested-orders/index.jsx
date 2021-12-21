@@ -216,9 +216,9 @@ ${products}
                                             >
                                                 Accept
                                             </div>
-                                            <div className='bg-blueGray-900 border border-blueGray-100 hover:border-red-500 hover:bg-red-500 transition ease-in duration-150 font-bold cursor-pointer text-blueGray-100 px-4 py-2 rounded'>
+                                            {/* <div className='bg-blueGray-900 border border-blueGray-100 hover:border-red-500 hover:bg-red-500 transition ease-in duration-150 font-bold cursor-pointer text-blueGray-100 px-4 py-2 rounded'>
                                                 Decline
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
