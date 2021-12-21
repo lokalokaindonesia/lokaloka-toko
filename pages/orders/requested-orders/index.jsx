@@ -176,7 +176,7 @@ ${products}
                                                     {t.products.map((p, i) => {
                                                         return (
                                                             <li key={i} className='text-xs'>
-                                                                {p.product.name} x {p.quantity}
+                                                                {p.product.name}
                                                             </li>
                                                         )
                                                     })}
