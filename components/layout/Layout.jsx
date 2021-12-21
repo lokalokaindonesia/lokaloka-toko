@@ -12,10 +12,10 @@ const Layout = ({ children }) => {
         <div className='layout'>
             {/* Sidebar */}
             <Sidebar>
-                <NavItem href='/'>
+                {/* <NavItem href='/'>
                     <AiFillDashboard className='w-5 h-5' />
                     <span>Dashboard</span>
-                </NavItem>
+                </NavItem> */}
                 {session?.user?.email != 'driver@gmail.com' && (
                     <>
                         <Divider label='orders' />
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
                             <HiClock className='w-5 h-5' />
                             <span>Requested Orders</span>
                         </NavItem>
-                        <NavItem href='/orders/approved-orders'>
+                        {/* <NavItem href='/orders/approved-orders'>
                             <HiBadgeCheck className='w-5 h-5' />
                             <span>Approved Orders</span>
                         </NavItem>
@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
                         <NavItem href='/transactions'>
                             <HiTrendingUp className='w-5 h-5' />
                             <span>Transactions</span>
-                        </NavItem>
+                        </NavItem> */}
                     </>
                 )}
             </Sidebar>

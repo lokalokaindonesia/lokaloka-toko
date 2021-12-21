@@ -26,7 +26,7 @@ const login = () => {
 
     const [session, loading] = useSession()
 
-    if (session) router.push(`/`)
+    if (session) router.push(`/orders/requested-orders`)
 
     const handleSubmit = (e) => {
         e.preventDefault()
