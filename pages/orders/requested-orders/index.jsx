@@ -42,8 +42,6 @@ const index = ({ transactions }) => {
 <b>Nomor = ${data.phone}</b>
 <b>Alamat = ${data.shippingLocation}</b>
 <b>Catatan = ${data.notes ? data.notes : ''}</b>
-=================
-${products}
                 `
         await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/transactions/${selectedID}`,
