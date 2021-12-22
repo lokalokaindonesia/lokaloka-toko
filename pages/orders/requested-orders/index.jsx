@@ -10,20 +10,29 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import { getSession, useSession } from 'next-auth/client'
 import Recta from 'recta'
+import Notifier from 'react-desktop-notification'
+import { useSelector, useDispatch } from 'react-redux'
+import { setRequestedOrder } from '@/redux/requestOrder/requestedOrderSlice'
+import { setTempRequestedOrder } from '@/redux/tempRequestOrder/tempRequestedOrderSlice'
 
 const index = ({ transactions }) => {
     const [session, loading] = useSession()
     const [requestedOrders, setRequestedOrders] = useState(transactions)
+    const [tempData, setTempData] = useState(transactions)
     const [selectedID, setSelectedID] = useState(null)
     const [open, setOpen] = useState(false)
+
+    // const theOrders = useSelector((state) => state.requestedOrder.value)
+    // const tempOrders = useSelector((state) => state.tempRequestedOrder.value)
+    // const dispatch = useDispatch()
 
     const cancelButtonRef = useRef(null)
 
     useEffect(() => {
         setInterval(() => {
             getUpdatedTransactions()
+            console.log(requestedOrders)
         }, 5000)
-        return () => {}
     }, [])
 
     // !DEV const printer = new Recta('3178503389', '1811')
@@ -123,6 +132,12 @@ const index = ({ transactions }) => {
         )
 
         setRequestedOrders(data)
+
+        // if (data == tempData) {
+        //     Notifier.start('Lokaloka x Arumanis', 'Pesanan Baru', 'https://lokaloka.id/orders/requested-orders')
+        //     setTempData(data)
+        // }
+        return
     }
 
     return (
@@ -136,13 +151,11 @@ const index = ({ transactions }) => {
                     <Header title='Requested Orders' />
                     <SubHeader title='All orders that required approval from store' />
                     <br />
-                    {requestedOrders.length == 0 && (
-                        <div className='w-full text-lg text-center border border-dashed border-blueGray-100 p-8 rounded h-full font-bold'>No Order</div>
-                    )}
+                    {!requestedOrders && <div className='w-full text-lg text-center border border-dashed border-blueGray-100 p-8 rounded h-full font-bold'>No Order</div>}
                     {requestedOrders.map((t, i) => {
                         return (
                             <div key={i} className='w-full bg-blueGray-900 shadow-sm text-xs p-2 rounded'>
-                                <div className='grid grid-flow-row grid-cols-5 gap-4 px-8 py-4'>
+                                <div className='grid grid-flow-row grid-cols-6 gap-4 px-8 py-4'>
                                     <div className='flex flex-col justify-start space-y-2'>
                                         <span className='uppercase text-blueGray-400 font-medium text-sm'>Order Date</span>
                                         <span className='font-bold text-md text-blueGray-100'>{moment(t.createdAt).format('LLLL')}</span>
@@ -156,6 +169,10 @@ const index = ({ transactions }) => {
                                     <div className='flex flex-col justify-start space-y-2 max-w-md'>
                                         <span className='uppercase text-blueGray-400 font-medium text-sm'>Shipping Address</span>
                                         <span className='font-bold capitalize text-md text-blueGray-100 line-clamp-2'>{t.shippingLocation}</span>
+                                    </div>
+                                    <div className='flex flex-col justify-start space-y-2 max-w-md'>
+                                        <span className='uppercase text-blueGray-400 font-medium text-sm'>Packaging</span>
+                                        <span className='font-bold capitalize text-md text-blueGray-100 line-clamp-2'>{t.packagingFee != 0 ? 'KARDUS' : 'PLASTIK'}</span>
                                     </div>
                                     <div className='flex flex-col justify-start space-y-2 max-w-md'>
                                         <span className='uppercase text-blueGray-400 font-medium text-sm'>Customer</span>
