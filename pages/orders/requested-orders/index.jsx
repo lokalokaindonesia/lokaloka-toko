@@ -18,6 +18,14 @@ const index = ({ transactions }) => {
     const [open, setOpen] = useState(false)
 
     const cancelButtonRef = useRef(null)
+
+    useEffect(() => {
+        setInterval(() => {
+            getUpdatedTransactions()
+        }, 5000)
+        return () => {}
+    }, [])
+
     // !DEV const printer = new Recta('3178503389', '1811')
     const printer = new Recta('1678769438', '1811')
     const acceptOrder = async () => {
@@ -38,6 +46,7 @@ const index = ({ transactions }) => {
 =================
 <b>Tanggal = ${moment(data.createdAt).locale('id').format('L')} - ${moment(data.createdAt).locale('id').format('LT')}</b>
 <b>Kode Transaksi = ${data.code}</b>
+<b>Pembayaran = ${data.paymentMethod == 'COD' ? 'COD' : 'Lunas'}</b>
 <b>Nama = ${data.user.name}</b>
 <b>Nomor = ${data.phone}</b>
 <b>Alamat = ${data.shippingLocation}</b>
@@ -110,12 +119,7 @@ const index = ({ transactions }) => {
 
     const getUpdatedTransactions = async () => {
         const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`,
-            {
-                headers: {
-                    Authorization: `Bearer ${session.jwt}`,
-                },
-            }
+            `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`
         )
 
         setRequestedOrders(data)
