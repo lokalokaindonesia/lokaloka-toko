@@ -55,6 +55,7 @@ const index = ({ transactions }) => {
 =================
 <b>Tanggal = ${moment(data.createdAt).locale('id').format('L')} - ${moment(data.createdAt).locale('id').format('LT')}</b>
 <b>Kode Transaksi = ${data.code}</b>
+<b>Total = ${data.shouldPayAmount}</b>
 <b>Pembayaran = ${data.paymentMethod == 'COD' ? 'COD' : 'Lunas'}</b>
 <b>Nama = ${data.user.name}</b>
 <b>Nomor = ${data.phone}</b>
