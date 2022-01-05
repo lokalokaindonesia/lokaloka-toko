@@ -99,7 +99,7 @@ const index = ({ transactions }) => {
             }
         )
 
-        if (area == 'malang-batu') {
+        if (transactions.area == 'malang-batu') {
             await axios.post(`/api/telegram/sendMessage`, {
                 message,
             })
