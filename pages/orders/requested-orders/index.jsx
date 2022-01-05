@@ -31,22 +31,22 @@ const index = ({ transactions }) => {
     }, [])
 
     const getUpdatedTransactions = async () => {
-        let showNotif = false
+        // let showNotif = false
         const { data } = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`
         )
 
         setRequestedOrders((prevState) => {
-            if (prevState.length !== data.length) {
-                // showNotif = true
-            }
+            //     if (prevState.length !== data.length) {
+            //         showNotif = true
+            //     }
             return data
         })
 
-        if (showNotif) {
-            Notifier.start('Lokaloka x Arumanis', 'Pesanan Baru', 'https://lokaloka.id/orders/requested-orders')
-            showNotif = false
-        }
+        // if (showNotif) {
+        //     Notifier.start('Lokaloka x Arumanis', 'Pesanan Baru', 'https://lokaloka.id/orders/requested-orders')
+        //     showNotif = false
+        // }
 
         return
     }
@@ -99,12 +99,6 @@ const index = ({ transactions }) => {
             }
         )
 
-        if (transactions.area == 'malang-batu') {
-            await axios.post(`/api/telegram/sendMessage`, {
-                message,
-            })
-        }
-
         updateDataOnly()
 
         printer.open().then(function () {
@@ -152,6 +146,12 @@ const index = ({ transactions }) => {
                 .feed(3)
                 .print()
         })
+
+        if (data.area == 'malang-batu') {
+            axios.post(`/api/telegram/sendMessage`, {
+                message,
+            })
+        }
     }
 
     return (
