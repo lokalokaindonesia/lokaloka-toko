@@ -11,29 +11,54 @@ import { ExclamationIcon } from '@heroicons/react/outline'
 import { getSession, useSession } from 'next-auth/client'
 import Recta from 'recta'
 import Notifier from 'react-desktop-notification'
-import { useSelector, useDispatch } from 'react-redux'
-import { setRequestedOrder } from '@/redux/requestOrder/requestedOrderSlice'
-import { setTempRequestedOrder } from '@/redux/tempRequestOrder/tempRequestedOrderSlice'
 
 const index = ({ transactions }) => {
     const [session, loading] = useSession()
     const [requestedOrders, setRequestedOrders] = useState(transactions)
-    const [tempData, setTempData] = useState(transactions)
     const [selectedID, setSelectedID] = useState(null)
     const [open, setOpen] = useState(false)
-
-    // const theOrders = useSelector((state) => state.requestedOrder.value)
-    // const tempOrders = useSelector((state) => state.tempRequestedOrder.value)
-    // const dispatch = useDispatch()
 
     const cancelButtonRef = useRef(null)
 
     useEffect(() => {
         setInterval(() => {
             getUpdatedTransactions()
-            console.log(requestedOrders)
         }, 5000)
+
+        return () => {
+            setRequestedOrders(transactions)
+        }
     }, [])
+
+    const getUpdatedTransactions = async () => {
+        let showNotif = false
+        const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`
+        )
+
+        setRequestedOrders((prevState) => {
+            if (prevState.length !== data.length) {
+                // showNotif = true
+            }
+            return data
+        })
+
+        if (showNotif) {
+            Notifier.start('Lokaloka x Arumanis', 'Pesanan Baru', 'https://lokaloka.id/orders/requested-orders')
+            showNotif = false
+        }
+
+        return
+    }
+
+    const updateDataOnly = async () => {
+        const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`
+        )
+
+        setRequestedOrders(data)
+        return
+    }
 
     // !DEV const printer = new Recta('3178503389', '1811')
     const printer = new Recta('1678769438', '1811')
@@ -74,11 +99,13 @@ const index = ({ transactions }) => {
             }
         )
 
-        await axios.post(`/api/telegram/sendMessage`, {
-            message,
-        })
+        if (area == 'malang-batu') {
+            await axios.post(`/api/telegram/sendMessage`, {
+                message,
+            })
+        }
 
-        getUpdatedTransactions()
+        updateDataOnly()
 
         printer.open().then(function () {
             printer
@@ -125,20 +152,6 @@ const index = ({ transactions }) => {
                 .feed(3)
                 .print()
         })
-    }
-
-    const getUpdatedTransactions = async () => {
-        const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/transactions?_sort=createdAt:desc&paymentStatus_in=SUCCESS&paymentStatus_in=PAID&paymentStatus_in=INACTIVE&paymentStatus_in=COMPLETED&paymentStatus_in=SUCCEEDED&paymentStatus_in=SETTLEMENT`
-        )
-
-        setRequestedOrders(data)
-
-        // if (data == tempData) {
-        //     Notifier.start('Lokaloka x Arumanis', 'Pesanan Baru', 'https://lokaloka.id/orders/requested-orders')
-        //     setTempData(data)
-        // }
-        return
     }
 
     return (

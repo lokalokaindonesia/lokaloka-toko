@@ -1,3 +1,6 @@
 export default async (req, res) => {
-    return res.json(req)
+    if (req.body.model == 'transaction' && req.body.entry.paymentStatus == 'PAID') {
+        return res.json({ message: 'updated' })
+    }
+    return res.json(req.body)
 }

@@ -15,10 +15,6 @@ const index = () => {
     }, [])
     return (
         <Layout>
-            <Head>
-                <title>Arumanis x Lokaloka | Admin Panel</title>
-                <meta name='description' content='Admin panel for Arumanis' />
-            </Head>
             <div className='flex flex-col space-y-2'>
                 <Header title='Dashboard' />
                 <SubHeader title='Summary of your sales' />
